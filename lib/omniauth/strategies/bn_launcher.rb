@@ -4,7 +4,9 @@ module OmniAuth
   module Strategies
     class Bn_Launcher
       include OmniAuth::Strategy
-      #
+
+      option :name, 'bn_launcher'
+
       # # receive parameters from the strategy declaration and save them
       def initialize(app, secret, auth_redirect, options = {})
         @secret = secret
