@@ -1,6 +1,6 @@
 module OmniAuth
     module Strategies
-      class Bn_Launcher
+      class BnLauncher
         class ValidationError < Exception
         end
       end

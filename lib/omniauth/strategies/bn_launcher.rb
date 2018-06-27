@@ -2,7 +2,7 @@ require 'omniauth'
 require 'digest'
 module OmniAuth
   module Strategies
-    class Bn_Launcher
+    class BnLauncher
       include OmniAuth::Strategy
 
       option :name, 'bn_launcher'

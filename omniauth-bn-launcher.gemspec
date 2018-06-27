@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require File.expand_path('../lib/omniauth-bn-launcher/version', __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.name          = "omniauth-bn_launcher"
+  spec.name          = "omniauth-bn-launcher"
   spec.version       = OmniAuth::Bn::Launcher::VERSION
   spec.authors       = ["bruckwubete"]
   spec.email         = ["bruckwendwessenwubet@cmail.carleton.ca"]

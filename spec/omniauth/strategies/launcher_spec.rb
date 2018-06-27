@@ -11,7 +11,7 @@ RSpec::Matchers.define :fail_with do |message|
   end
 end
 
-RSpec.describe OmniAuth::Strategies::Bn_Launcher do
+RSpec.describe OmniAuth::Strategies::BnLauncher do
   include OmniAuth::Test::StrategyTestCase
   let(:sample_user) {
     {
@@ -23,7 +23,7 @@ RSpec.describe OmniAuth::Strategies::Bn_Launcher do
   }
   let(:secret){"someSEcREt"}
   let(:auth_hash){ last_request.env['omniauth.auth'] }
-  let(:strategy) { [OmniAuth::Strategies::Bn_Launcher, secret, "https://idp.sso.example.com/signon/0609"] }
+  let(:strategy) { [OmniAuth::Strategies::BnLauncher, secret, "https://idp.sso.example.com/signon/0609"] }
 
   it "has a version number" do
     expect(OmniAuth::Bn::Launcher::VERSION).not_to be nil
