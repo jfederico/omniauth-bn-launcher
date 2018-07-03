@@ -31,7 +31,6 @@ module OmniAuth
 
       def raw_info
         puts session[:user_id]
-        puts cookies['myapp_redirect_to_when_done']
         puts env
         @raw_info ||= access_token.get('/user').parsed
       end
