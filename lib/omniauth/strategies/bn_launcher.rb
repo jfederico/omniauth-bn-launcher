@@ -7,6 +7,12 @@ module OmniAuth
 
       option :name, 'bn_launcher'
 
+
+      def callback_url
+        puts  full_host, script_name, callback_path
+        full_host + script_name + callback_path
+      end
+
       def request_phase
         @user_id = request.params['user_id'] if request.params['user_id']
         super
