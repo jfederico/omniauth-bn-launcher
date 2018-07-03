@@ -7,6 +7,11 @@ module OmniAuth
 
       option :name, 'bn_launcher'
 
+      def request_phase
+        @user_id = request.params['user_id'] if request.params['user_id']
+        super
+      end
+
       # These are called after authentication has succeeded. If
       # possible, you should try to set the UID without making
       # additional calls (if the user id is returned with the token
@@ -30,9 +35,7 @@ module OmniAuth
       end
 
       def raw_info
-        puts session[:user_id]
-        puts env
-        @raw_info ||= access_token.get('/user').parsed
+        @raw_info ||= access_token.get("/user?user_id#{@user_id}").parsed
       end
     end
   end
