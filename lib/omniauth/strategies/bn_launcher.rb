@@ -17,7 +17,9 @@ module OmniAuth
       info do
         {
             :name => raw_info['name'],
-            :email => raw_info['email']
+            :email => raw_info['email'],
+            :username => raw_info['username'],
+            :provider => raw_info['provider']
         }
       end
 
@@ -28,6 +30,9 @@ module OmniAuth
       end
 
       def raw_info
+        puts session[:user_id]
+        puts cookies['myapp_redirect_to_when_done']
+        puts env
         @raw_info ||= access_token.get('/user').parsed
       end
     end
