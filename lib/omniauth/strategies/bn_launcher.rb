@@ -48,7 +48,7 @@ module OmniAuth
       def raw_info
         puts @user_id, "UserId"
         puts @@user_id2, "UserId"
-        @raw_info ||= access_token.get("/user?user_id#{@user_id}").parsed
+        @raw_info ||= access_token.get("/user?user_id#{@@user_id2}").parsed
       end
     end
   end
