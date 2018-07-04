@@ -7,6 +7,9 @@ module OmniAuth
 
       option :name, 'bn_launcher'
 
+      #Todo find a better way
+      @@user_id = nil
+
       def callback_url
         @@user_id = request.params['user_id'] if request.params['user_id']
         puts request.params
