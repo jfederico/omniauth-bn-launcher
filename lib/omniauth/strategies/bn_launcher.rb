@@ -7,9 +7,11 @@ module OmniAuth
 
       option :name, 'bn_launcher'
 
+      @user_id = nil
 
       def callback_url
         @user_id = request.params['user_id'] if request.params['user_id']
+        @@user_id2 = request.params['user_id'] if request.params['user_id']
         puts request.params
         puts query_string
         puts  full_host, script_name, callback_path
@@ -43,6 +45,8 @@ module OmniAuth
       end
 
       def raw_info
+        puts @user_id, "UserId"
+        puts @@user_id2, "UserId"
         @raw_info ||= access_token.get("/user?user_id#{@user_id}").parsed
       end
     end
