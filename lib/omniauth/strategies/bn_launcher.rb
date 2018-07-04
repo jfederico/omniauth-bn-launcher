@@ -4,14 +4,14 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class BnLauncher < OmniAuth::Strategies::OAuth2
+      attr_reader :some_id
 
       option :name, 'bn_launcher'
 
-      @user_id = nil
       @@user_id2 = nil
 
       def callback_url
-        @user_id = request.params['user_id'] if request.params['user_id']
+        @some_id = request.params['user_id'] if request.params['user_id']
         @@user_id2 = request.params['user_id'] if request.params['user_id']
         puts request.params
         puts query_string
@@ -46,7 +46,8 @@ module OmniAuth
       end
 
       def raw_info
-        puts @user_id, "UserId"
+        puts @some_id, "UserId"
+        puts some_id
         puts @@user_id2, "UserId"
         @raw_info ||= access_token.get("/user?user_id=#{@@user_id2}").parsed
       end
