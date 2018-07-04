@@ -4,7 +4,7 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class BnLauncher < OmniAuth::Strategies::OAuth2
-      attr_reader :some_id
+      class << self; attr_reader :some_id end
 
       option :name, 'bn_launcher'
 
