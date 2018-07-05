@@ -6,8 +6,10 @@ module OmniAuth
     class BnLauncher < OmniAuth::Strategies::OAuth2
 
       option :name, 'bn_launcher'
+      option :customer_name, nil
 
       def request_phase
+        options.authorize_params[:customer] = options[:customer_name]
         super
       end
 
@@ -23,8 +25,7 @@ module OmniAuth
             :name => raw_info['name'],
             :email => raw_info['email'],
             :image => raw_info['image'],
-            :username => raw_info['username'],
-            :provider => raw_info['provider']
+            :username => raw_info['username']
         }
       end
 
