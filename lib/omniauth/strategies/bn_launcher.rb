@@ -13,6 +13,11 @@ module OmniAuth
         super
       end
 
+      def callback_phase
+        request.params["customer"] = options.authorize_params[:customer]
+        super
+      end
+
       # These are called after authentication has succeeded. If
       # possible, you should try to set the UID without making
       # additional calls (if the user id is returned with the token
