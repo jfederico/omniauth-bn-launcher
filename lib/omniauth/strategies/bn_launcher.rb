@@ -6,15 +6,10 @@ module OmniAuth
     class BnLauncher < OmniAuth::Strategies::OAuth2
 
       option :name, 'bn_launcher'
-      option :customer_name, nil
+      option :customer, nil
 
       def request_phase
-        options.authorize_params[:customer] = options[:customer_name]
-        super
-      end
-
-      def callback_phase
-        request.params["customer"] = options.authorize_params[:customer]
+        options.authorize_params[:customer] = options[:customer]
         super
       end
 
