@@ -7,22 +7,32 @@ module OmniAuth
 
       option :name, 'bn_launcher'
       option :customer, nil
+      option :default_callback_url
 
       def request_phase
+        session["omniauth.redirect_url"] = request.protocol + request.host_with_port
         options.authorize_params[:customer] = options[:customer]
         super
       end
 
       def callback_url
-        "http://demo.gl.greenlight.com:4000" + script_name + callback_path + query_string
+        if options[:default_callback_url].nil?
+          fail!(:callback_url_not_set, "The callback url is not set")
+        end
+        options[:default_callback_url] + script_name + callback_path + query_string
+      end
+
+      def redirect_url
+        if session["omniauth.redirect_url"].nil?
+          fail!(:redirect_url_not_set, "The redirect url is not set")
+        end
+        session["omniauth.redirect_url"] + script_name + callback_path + query_string
       end
 
       def callback_phase
-        puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_state, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
-        puts request.query_string
-        if request.host == "demo.gl.greenlight.com"
+        if request.host == options[:default_callback_url]
           response = Rack::Response.new
-          response.redirect "http://ice.gl.greenlight.com:4000/auth/bn_launcher/callback?#{request.query_string}"
+          response.redirect redirect_url
           response.finish
         else
           super
