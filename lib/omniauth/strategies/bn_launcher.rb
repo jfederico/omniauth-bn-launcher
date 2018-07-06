@@ -14,7 +14,8 @@ module OmniAuth
       end
 
       def callback_phase
-        puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_statem, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
+        puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_state, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
+        redirect_to "http://ice.gl.greenlight.com:4000/auth/bn_launcher/callback?#{request.query_parameters.to_param}" and return if request.host == "demo.gl.greenlight.com"
         super
       end
 
