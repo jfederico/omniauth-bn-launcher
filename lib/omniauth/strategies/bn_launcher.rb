@@ -13,6 +13,10 @@ module OmniAuth
         super
       end
 
+      def callback_url
+        "http://demo.gl.greenlight.com:4000" + script_name + callback_path + query_string
+      end
+
       def callback_phase
         puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_state, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
         puts request.query_string
