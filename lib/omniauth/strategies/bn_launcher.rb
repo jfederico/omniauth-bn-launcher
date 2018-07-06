@@ -1,6 +1,7 @@
 require 'omniauth'
 require 'digest'
 require 'omniauth-oauth2'
+
 module OmniAuth
   module Strategies
     class BnLauncher < OmniAuth::Strategies::OAuth2
@@ -8,10 +9,11 @@ module OmniAuth
       option :name, 'bn_launcher'
       option :customer, nil
       option :default_callback_url
-      option :redirect_url
+      option :gl_redirect_url
 
       def request_phase
         options.authorize_params[:customer] = options[:customer]
+        options.authorize_params[:gl_redirect_url] = options[:gl_redirect_url]
         super
       end
 
@@ -23,16 +25,13 @@ module OmniAuth
       end
 
       def redirect_url
-        if options[:redirect_url].nil?
-          fail!(:redirect_url_not_set)
+        if request.params[:gl_redirect_url].nil?
+          fail!(:gl_redirect_url_not_set)
         end
-        puts options[:redirect_url], script_name, callback_path, query_string
-        options[:redirect_url] + script_name + callback_path + query_string
+        request.params[:gl_redirect_url] + script_name + callback_path + query_string + request.query_string
       end
 
       def callback_phase
-        puts request.base_url, options[:default_callback_url]
-        puts redirect_url
         if request.base_url == options[:default_callback_url]
           response = Rack::Response.new
           response.redirect redirect_url
