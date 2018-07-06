@@ -30,7 +30,7 @@ module OmniAuth
       end
 
       def callback_phase
-        if request.host == options[:default_callback_url]
+        if (request.protocol + request.host_with_port) == options[:default_callback_url]
           response = Rack::Response.new
           response.redirect redirect_url
           response.finish
