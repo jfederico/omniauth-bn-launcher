@@ -26,10 +26,13 @@ module OmniAuth
         if options[:redirect_url].nil?
           fail!(:redirect_url_not_set)
         end
+        puts options[:redirect_url], script_name, callback_path, query_string
         options[:redirect_url] + script_name + callback_path + query_string
       end
 
       def callback_phase
+        puts request.base_url, options[:default_callback_url]
+        puts redirect_url
         if request.base_url == options[:default_callback_url]
           response = Rack::Response.new
           response.redirect redirect_url
