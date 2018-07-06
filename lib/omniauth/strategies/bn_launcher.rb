@@ -25,10 +25,11 @@ module OmniAuth
       end
 
       def redirect_url
-        if request.params[:gl_redirect_url].nil?
+        puts request.params
+        if request.params["gl_redirect_url"].nil?
           fail!(:gl_redirect_url_not_set)
         end
-        request.params[:gl_redirect_url] + script_name + callback_path + query_string + request.query_string
+        request.params["gl_redirect_url"] + script_name + callback_path + query_string + request.query_string
       end
 
       def callback_phase
