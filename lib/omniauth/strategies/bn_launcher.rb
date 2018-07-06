@@ -20,9 +20,9 @@ module OmniAuth
           response = Rack::Response.new
           response.redirect "http://ice.gl.greenlight.com:4000/auth/bn_launcher/callback?#{request.query_string}"
           response.finish
-          return
+        else
+          super
         end
-        super
       end
 
       # These are called after authentication has succeeded. If
