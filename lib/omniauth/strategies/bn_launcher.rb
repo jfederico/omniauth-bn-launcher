@@ -25,7 +25,6 @@ module OmniAuth
       end
 
       def redirect_url
-        puts request.params
         if request.params["gl_redirect_url"].nil?
           fail!(:gl_redirect_url_not_set)
         end
