@@ -17,7 +17,9 @@ module OmniAuth
         puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_state, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
         puts request.query_string
         if request.host == "demo.gl.greenlight.com"
-          Rack::Response.new.redirect("http://ice.gl.greenlight.com:4000/auth/bn_launcher/callback?#{request.query_string}").finish
+          response = Rack::Response.new
+          response.redirect "http://ice.gl.greenlight.com:4000/auth/bn_launcher/callback?#{request.query_string}"
+          response.finish
           return
         end
         super
