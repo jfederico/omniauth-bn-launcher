@@ -13,6 +13,11 @@ module OmniAuth
         super
       end
 
+      def callback_phase
+        puts "BN LAUNCHER DEBUG:  ", !options.provider_ignores_statem, request.params["state"].to_s.empty?, request.params["state"], session["omniauth.state"]
+        super
+      end
+
       # These are called after authentication has succeeded. If
       # possible, you should try to set the UID without making
       # additional calls (if the user id is returned with the token
