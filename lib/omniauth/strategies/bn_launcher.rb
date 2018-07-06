@@ -8,25 +8,25 @@ module OmniAuth
       option :name, 'bn_launcher'
       option :customer, nil
       option :default_callback_url
+      option :redirect_url
 
       def request_phase
-        session["omniauth.redirect_url"] = request.base_url
         options.authorize_params[:customer] = options[:customer]
         super
       end
 
       def callback_url
         if options[:default_callback_url].nil?
-          fail!(:callback_url_not_set, "The callback url is not set")
+          fail!(:callback_url_not_set)
         end
         options[:default_callback_url] + script_name + callback_path + query_string
       end
 
       def redirect_url
-        if session["omniauth.redirect_url"].nil?
-          fail!(:redirect_url_not_set, "The redirect url is not set")
+        if options[:redirect_url].nil?
+          fail!(:redirect_url_not_set)
         end
-        session["omniauth.redirect_url"] + script_name + callback_path + query_string
+        options[:redirect_url] + script_name + callback_path + query_string
       end
 
       def callback_phase
