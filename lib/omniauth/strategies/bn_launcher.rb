@@ -22,6 +22,8 @@ module OmniAuth
           fail!(:callback_url_not_set)
         end
         options[:default_callback_url] + script_name + callback_path + query_string
+      rescue => e
+        fail!(e.message)
       end
 
       def redirect_url
@@ -29,6 +31,8 @@ module OmniAuth
           fail!(:gl_redirect_url_not_set)
         end
         request.params["gl_redirect_url"] + script_name + callback_path + query_string + request.query_string
+      rescue => e
+        fail!(e.message)
       end
 
       def callback_phase
