@@ -36,8 +36,7 @@ module OmniAuth
       end
 
       def callback_phase
-        puts (request.base_url.gsub! %r{/+}, '/'),  (options[:default_callback_url].gsub! %r{/+}, '/')
-        if (request.base_url.gsub! %r{/+}, '/') == (options[:default_callback_url].gsub! %r{/+}, '/')
+        if request.base_url == options[:default_callback_url]
           response = Rack::Response.new
           response.redirect redirect_url
           response.finish
