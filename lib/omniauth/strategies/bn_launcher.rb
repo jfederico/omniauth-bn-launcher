@@ -8,12 +8,14 @@ module OmniAuth
 
       option :name, 'bn_launcher'
       option :customer, nil
-      option :default_callback_url
-      option :gl_redirect_url
+      option :default_callback_url, nil
+      option :gl_redirect_url, nil
+      option :checksum, nil
 
       def request_phase
         options.authorize_params[:customer] = options[:customer]
         options.authorize_params[:gl_redirect_url] = options[:gl_redirect_url]
+        options.authorize_params[:checksum] = options[:checksum]
         super
       end
 
