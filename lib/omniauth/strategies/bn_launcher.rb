@@ -9,12 +9,16 @@ module OmniAuth
       option :name, 'bn_launcher'
       option :customer, nil
       option :default_callback_url, nil
-      option :gl_redirect_url, nil
+      option :customer_redirect_url, nil
+      #Exists to support the old launcher should be removed
       option :checksum, nil
 
       def request_phase
         options.authorize_params[:customer] = options[:customer]
-        options.authorize_params[:gl_redirect_url] = options[:gl_redirect_url]
+        options.authorize_params[:customer_redirect_url] = options[:customer_redirect_url]
+
+        # These options exists to support the old launcher and should eventually be removed
+        options.authorize_params[:gl_redirect_url] = options[:customer_redirect_url]
         options.authorize_params[:checksum] = options[:checksum]
         super
       end
@@ -29,10 +33,15 @@ module OmniAuth
       end
 
       def redirect_url
-        if request.params["gl_redirect_url"].nil?
+        # Should remove the gl_redirect_url has that is used for the old launcher
+        if !request.params["gl_redirect_url"].nil?
+          request.params["gl_redirect_url"] + script_name + callback_path + query_string
+        elsif !request.params["customer_redirect_url"].nil?
+          request.params["customer_redirect_url"] + script_name + callback_path + query_string
+        else
+          #should be changed to customer once the old launcher is removed
           fail!(:gl_redirect_url_not_set)
         end
-        request.params["gl_redirect_url"] + script_name + callback_path + query_string
       rescue => e
         fail!(e.message)
       end
