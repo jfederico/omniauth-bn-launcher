@@ -13,3 +13,5 @@
 #IDEs
 .idea
 .idea/**
+
+/omniauth-bn-launcher-*
