@@ -51,6 +51,8 @@ module OmniAuth
           response = Rack::Response.new
           response.redirect redirect_url
           response.finish
+        elsif !request.params["message"].nil?
+          fail!(request.params["message"])
         else
           super
         end
