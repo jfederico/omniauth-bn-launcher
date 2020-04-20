@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Blindside Networks auth launcher"
   spec.description   = "A ruby gem for auth integration of Blindside Networks customers"
+  spec.homepage      = "https://github.com/blindsidenetworks/omniauth-bn-launcher.git"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
